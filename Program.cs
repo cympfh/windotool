@@ -12,9 +12,6 @@ namespace windotool
         [DllImport("kernel32.dll")]
         static extern bool AttachConsole(int dwProcessId);
 
-        /// <summary>
-        /// windotool Entrypoint
-        /// </summary>
         [STAThread]
         static async Task Main(string[] args)
         {
@@ -25,7 +22,8 @@ namespace windotool
         [Command("key")]
         public void Key(
             [Option(0)] string key,
-            [Option("v")] bool verbose = false)
+            [Option("v")] bool verbose = false
+        )
         {
             SendKeys.SendWait(key);
             if (verbose)
