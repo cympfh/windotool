@@ -6,4 +6,8 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="ConsoleAppFramework" Version="3.3.2" />
+  </ItemGroup>
+
 </Project>

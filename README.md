@@ -2,6 +2,12 @@
 
 ## Usage
 
+See
+
+```bash
+$ windotool help
+```
+
 None
 
 ## Todo

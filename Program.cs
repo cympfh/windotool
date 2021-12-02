@@ -1,27 +1,36 @@
-using System;
+using ConsoleAppFramework;
+using Microsoft.Extensions.Hosting;
 using System.Windows.Forms;
+using System;
+using System.Threading.Tasks;
 
 namespace windotool
 {
-    static class Program
+    class Program : ConsoleAppBase
     {
-
         [System.Runtime.InteropServices.DllImport("kernel32.dll")]
-                static extern bool AttachConsole( int dwProcessId );
+        static extern bool AttachConsole( int dwProcessId );
 
         /// <summary>
-        ///  The main entry point for the application.
+        /// windotool Entrypoint
         /// </summary>
         [STAThread]
-        static void Main()
+        static async Task Main(string[] args)
         {
             AttachConsole(-1);
-            SendKeys.SendWait("a");
-            Console.WriteLine("Sent: a");
-            // Application.SetHighDpiMode(HighDpiMode.SystemAware);
-            // Application.EnableVisualStyles();
-            // Application.SetCompatibleTextRenderingDefault(false);
-            // Application.Run(new Form1());
+            await Host.CreateDefaultBuilder().RunConsoleAppFrameworkAsync<Program>(args);
+        }
+
+        [Command("key")]
+        public void Key(
+            [Option(0)] string key,
+            [Option("v")] bool verbose = false)
+        {
+            SendKeys.SendWait(key);
+            if (verbose)
+            {
+                Console.WriteLine($"Sent Key: {key}");
+            }
         }
     }
 }
