@@ -54,12 +54,14 @@ $ windotool mouseup 1
 ## Todo
 
 - [x] key
+    - [x] `-repeat`, `-delay`
 - [ ] keydown
 - [ ] keyup
 - [x] mousemove
 - [x] mousedown
 - [x] mouseup
 - [x] click
+    - [x] `-repeat`, `-delay`
 
 ## For Windows Developers
 

@@ -22,13 +22,22 @@ namespace windotool
         [Command("key")]
         public void Key(
             [Option(0)] string key,
+            [Option("r")] uint repeat = 1,
+            [Option("d", "in milliseconds")] int delay = 100,
             [Option("v")] bool verbose = false
         )
         {
-            SendKeys.SendWait(key);
-            if (verbose)
+            for (uint i = 0; i < repeat; ++i)
             {
-                Console.WriteLine($"Sent Key: {key}");
+                SendKeys.SendWait(key);
+                if (verbose)
+                {
+                    Console.WriteLine($"Sent Key: {key}");
+                }
+                if (i + 1 < repeat)
+                {
+                    System.Threading.Thread.Sleep(delay);
+                }
             }
         }
 
@@ -101,17 +110,26 @@ namespace windotool
 
         [Command("click")]
         public void Click(
-            [Option(0)] uint button,
+            [Option(0, "button")] uint button,
+            [Option("r")] uint repeat = 1,
+            [Option("d", "in milliseconds")] int delay = 100,
             [Option("v")] bool verbose = false
         )
         {
             var e = MouseEvent.LeftDown | MouseEvent.LeftUp;
             if (button == 2) { e = MouseEvent.MiddleDown | MouseEvent.MiddleUp; }
             else if (button == 3) { e = MouseEvent.RightDown | MouseEvent.RightUp; }
-            mouse_event((long)(e), 0, 0, 0, UIntPtr.Zero);
-            if (verbose)
+            for (uint i = 0; i < repeat; ++i)
             {
-                Console.WriteLine($"Clicked: {button}");
+                mouse_event((long)(e), 0, 0, 0, UIntPtr.Zero);
+                if (verbose)
+                {
+                    Console.WriteLine($"Clicked: {button}");
+                }
+                if (i + 1 < repeat)
+                {
+                    System.Threading.Thread.Sleep(delay);
+                }
             }
         }
     }
